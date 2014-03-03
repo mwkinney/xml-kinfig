@@ -1,11 +1,15 @@
 import time
 import glob
-from xml.etree import ElementTree
 from os.path import expanduser
 from sys import exit
+import re
+#from tempfile import TemporaryFile
+import tempfile
+import shutil
+#import os
 
 class XmlHandler(object):
-    def __init__(self):
+    def __init__(self, rootdir):
         start = time.time()
         #make/reset list
         dir_list = []
@@ -13,14 +17,18 @@ class XmlHandler(object):
         dir_list += glob.glob(rootdir + '/*/???????????????/???????/???.??????')
         dir_list += glob.glob(rootdir + '/*/???????????????/???.??????')
 
-    def modify_files(self, rootdir, new_string):
+    def modify_files(self, old_string, new_string):
         for d in dir_list: # for-each file
-            doc = ElementTree.parse(d)
-            root = doc.getroot()
-            tree = ElementTree.ElementTree.parse(d, parse)
-            for r in tree('ApplicationInfo'):
-                ApplicationInfo.set('SMTPServer', new_string)
-                ElementTree.ElementTree.write(r)
+            originalFile = open(d, 'r') # open file and read it
+            tempFile = tempfile.NamedTemporaryFile('w+b', delete=False) # open a tempfile for read/write 
+            shutil.copy (originalFile, tempFile.name) #copy originalFile over tempFile
+            for line in tempfile: #replace strings in tempfile
+                tempfile.write(re.sub(line.replace(old_string, new_string flags=re.IGNORECASE | re.MULTILINE)))
+            #close the tempfile
+            #rename tempfile over original file's name
+            #deleteme- shutil.copy (originalFile, tempFile) #copy tempFile over originalFile 
+            #deleteme- originalFile.close() #save?? close originalFile
+            #deleteme- tempFile.close() #close tempfile (deletes it, also GC'd by default)
         end = time.time()
         print ('All done\n', len(dir_list),'files updated\n', \
         '{0:.2f}'.format(end - start), 'seconds elapsed')
@@ -33,7 +41,11 @@ class UserInput(object):
         rootdir = expanduser('~/') + server
         #new_string = input("Enter SMTP value eg. 'internal.elitecorp.com' without "
         #"quotes\n> ")
-        new_string = input("Enter SMTP value eg. 'localhost' without quotes\n> ")
+        old_string = input("Enter original text value eg.\
+        'internal.hubbardone.net' without quotes. This is not case\
+        sensitive.\n> ")
+        new_string = input("Enter SMTP value eg. 'localhost' without\
+                quotes. This is not case sensitive.\n> ")
 
     def accept_parameters(self):
         print ('xml-kinfig\nby Mark Kinney\nUse at your own peril, no warranty or'\
@@ -42,7 +54,7 @@ class UserInput(object):
         while True:
             print ('Run now? Y/N')
             tokenTuple = {
-                'Y':(update, (rootdir, new_string)),
+                'Y':(modify_files, (old_string, new_string)),
                 'N':(exit, ()),
                 }
             user_input = (input("> "))
@@ -54,4 +66,6 @@ class UserInput(object):
                 break
 
 startup = UserInput()
+xml = XmlHandler()
 startup.accept_parameters()
+xml.modify_files()
