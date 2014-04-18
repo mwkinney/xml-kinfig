@@ -1,2 +1,2 @@
 xml-kinfig README
-Initial commit
+Configuration utility for Valve's Steam software
