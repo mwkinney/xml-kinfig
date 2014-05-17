@@ -1,2 +1,1 @@
-xml-kinfig README
-Configuration utility for Valve's Steam software
+Bulk file updater for string replacements
