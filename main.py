@@ -4,7 +4,6 @@ from glob import glob
 from shutil import copy
 from sys import exit
 from tempfile import NamedTemporaryFile as namedtemporaryfile
-from shutil import copy
 
 def update(rootdir, old_string, new_string):
     start = time() 
@@ -24,19 +23,21 @@ def update(rootdir, old_string, new_string):
     "{0:.2f}".format(end - start), "seconds elapsed"
     raw_input("\nPress ENTER to exit")
 
-print "'xml-kinfig'\nConception, design and programming by yenic\nUse at"\
-        " your own peril, no warranty or support provided\nHit Ctrl-C to"\
-        " exit at any time\n"
-server = raw_input("Enter servername eg. 'h1-chdevws13' without quotes\n> ") 
-rootdir = r'//' + server + 'www'
-old_string = raw_input("Enter original text value eg."
-        " 'internal.hubbardone.net' without quotes. \nThis is not case"
-        " sensitive.\n> ") 
-new_string = raw_input("Enter new text value eg. 'internal.elitecorp.com'"
-        " without quotes. \nThis will appear as you case it.\n> ")
+print "'xml-kinfig'\nBulk file update utility\n"\
+        "Conception, design and programming by Mark Kinney\n"\
+        "Use at your own peril, no warranty or support provided\nCtrl-C"\
+        " to exit at any time\n"
+server = raw_input("Enter servername and share eg. 'h1-chdevws13\www2'"\
+        " without quotes\n> ") 
+rootdir = r'//' + server 
+old_string = raw_input("\nEnter original text value eg."
+        " 'internal.hubbardone.net' without quotes \nThis is not case"
+        " sensitive\n> ") 
+new_string = raw_input("\nEnter new text value eg. 'internal.elitecorp.com'"
+        " without quotes \nThis will appear as you case it\n> ")
 
 while True:
-    print 'Run now? Y/N'
+    print '\nRun now? Y/N'
     tokenDict = {
         'Y':(update, (rootdir, old_string, new_string)),
         'N':(exit, ()),
