@@ -23,10 +23,10 @@ def update(rootdir, old_string, new_string):
     "{0:.2f}".format(end - start), "seconds elapsed"
     raw_input("\nPress ENTER to exit")
 
-print "'xml-kinfig'\nBulk file update utility\n"\
+print "'xml-kinfig' v1.0 - bulk file update utility\n"\
         "Conception, design and programming by yenic\n"\
-        "Use at your own peril, no warranty or support provided\nCtrl-C"\
-        " to exit at any time\n"
+        "Use at your own peril, no warranty or support provided\n"\
+        "Ctrl-C to exit at any time\n"
 server = raw_input("Enter servername and share eg. 'h1-chdevws13\www2'"\
         " without quotes\n> ") 
 rootdir = r'//' + server 
