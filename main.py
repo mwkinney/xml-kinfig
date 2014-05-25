@@ -24,7 +24,7 @@ def update(rootdir, old_string, new_string):
     raw_input("\nPress ENTER to exit")
 
 print "'xml-kinfig'\nBulk file update utility\n"\
-        "Conception, design and programming by Mark Kinney\n"\
+        "Conception, design and programming by yenic\n"\
         "Use at your own peril, no warranty or support provided\nCtrl-C"\
         " to exit at any time\n"
 server = raw_input("Enter servername and share eg. 'h1-chdevws13\www2'"\
