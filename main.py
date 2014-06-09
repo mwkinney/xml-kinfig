@@ -10,7 +10,7 @@ from os import remove
 from tempfile import NamedTemporaryFile as namedtemporaryfile
 
 GREETING = ("""'xml-kinfig' v1.1 - bulk file update utility
-Conception, design and programming by yenic
+Conception, design and programming by Mark Kinney
 Use at your own peril, no warranty or support provided 
 Ctrl-C to exit at any time\n""")
 
